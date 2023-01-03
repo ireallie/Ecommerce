@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ecommerce.BusinessLogic.Contracts\Ecommerce.BusinessLogic.Contracts.csproj" />
+    <ProjectReference Include="..\Ecommerce.BusinessLogic.Contracts\Ecommerce.BusinessLogic.Contracts.csproj" />
     <ProjectReference Include="..\Ecommerce.DataAccess\Ecommerce.DataAccess.csproj" />
   </ItemGroup>
 
