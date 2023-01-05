@@ -42,6 +42,8 @@ namespace Ecommerce.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ecommerce.Api v1"));
             }
 
+            app.UseExceptionMiddleware();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

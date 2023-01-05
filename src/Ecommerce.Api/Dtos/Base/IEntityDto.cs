@@ -1,4 +1,4 @@
-﻿namespace Ecommerce.Api.Dtos
+﻿namespace Ecommerce.Api.Dtos.Base
 {
     public interface IEntityDto<TPrimaryKey>
     {
