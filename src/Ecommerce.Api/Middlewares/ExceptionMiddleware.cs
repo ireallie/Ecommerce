@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Api.Dtos;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -9,9 +10,14 @@ namespace Ecommerce.Api.Middlewares
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        public ExceptionMiddleware(RequestDelegate next)
+        private readonly ILogger<ExceptionMiddleware> _logger;
+
+        public ExceptionMiddleware(
+            RequestDelegate next,
+            ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -22,6 +28,7 @@ namespace Ecommerce.Api.Middlewares
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Something went wrong: {ex}");
                 await HandleExceptionAsync(context, ex);
             }
         }

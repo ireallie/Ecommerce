@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Ecommerce.Api.Mappings;
-using Ecommerce.BusinessLogic.Interfaces;
+using Ecommerce.BusinessLogic.Contracts.Interfaces;
 using Ecommerce.BusinessLogic.Services;
 using Ecommerce.DataAccess;
 using Ecommerce.DataAccess.Interceptors;
@@ -38,6 +38,8 @@ namespace Ecommerce.Api.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IVariationOptionService, VariationOptionService>();
+            services.AddScoped<IVariationService, VariationService>();
 
             return services;
         }

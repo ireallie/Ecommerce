@@ -4,7 +4,6 @@ using Ecommerce.Api.Dtos.Products.Base;
 using Ecommerce.Api.Extensions;
 using Ecommerce.BusinessLogic.Contracts.Interfaces;
 using Ecommerce.BusinessLogic.Dtos.Products;
-using Ecommerce.BusinessLogic.Interfaces;
 using Ecommerce.DataAccess.Entities.Products;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

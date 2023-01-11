@@ -1,7 +1,8 @@
 ﻿using Ecommerce.BusinessLogic.Communication.Products;
-using Ecommerce.BusinessLogic.Interfaces;
+using Ecommerce.BusinessLogic.Contracts.Interfaces;
 using Ecommerce.DataAccess.Entities.Products;
 using Ecommerce.DataAccess.Interfaces;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,11 +12,15 @@ namespace Ecommerce.BusinessLogic.Services
     public class ProductService: IProductService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<ProductService> _logger;
 
         public ProductService(
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            ILogger<ProductService> logger
+            )
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<SaveProductResponse> CreateAsync(Product product)
@@ -29,7 +34,7 @@ namespace Ecommerce.BusinessLogic.Services
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
+                _logger.LogError(ex, "An error occurred when saving the product");
                 return new SaveProductResponse($"An error occurred when saving the product: {ex.Message}");
             }
         }
@@ -52,7 +57,7 @@ namespace Ecommerce.BusinessLogic.Services
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
+                _logger.LogError(ex, "An error occurred when deleting the product");
                 return new SaveProductResponse($"An error occurred when deleting the product: {ex.Message}");
             }
         }
@@ -76,7 +81,7 @@ namespace Ecommerce.BusinessLogic.Services
             }
 
             existingProduct.Name = existingProduct.Name;
-            // update the rest of properties
+            // TODO: Update the rest of properties
 
             try
             {
@@ -87,7 +92,7 @@ namespace Ecommerce.BusinessLogic.Services
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
+                _logger.LogError(ex, "An error occurred when updating the product");
                 return new SaveProductResponse($"An error occurred when updating the product: {ex.Message}");
             }
         }

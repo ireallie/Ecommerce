@@ -3,7 +3,7 @@ using Ecommerce.DataAccess.Entities.Products;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ecommerce.BusinessLogic.Interfaces
+namespace Ecommerce.BusinessLogic.Contracts.Interfaces
 {
     public interface IProductService
     {

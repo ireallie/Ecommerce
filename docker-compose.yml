@@ -11,9 +11,13 @@ services:
      - 5401:443
     depends_on:
      - sqlserver
+     - kibana
+    networks:
+    - docker-network
+
   sqlserver:
     restart: unless-stopped
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
     environment:
       SA_PASSWORD: "P@ssword123"
       ACCEPT_EULA: "Y"
@@ -21,3 +25,41 @@ services:
       - "./data-mssql:/var/opt/mssql/data"
     ports:
       - 5050:1433
+    networks:
+    - docker-network
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.8
+    ports:
+    - 9200:9200
+    volumes:
+    - elasticsearch-data:/usr/share/elasticsearch/data
+    environment:
+    - xpack.security.enabled=false
+    - xpack.monitoring.enabled=true
+    - xpack.watcher.enabled=false
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - discovery.type=single-node
+    networks:
+    - docker-network
+
+  kibana:
+   container_name: kibana
+   image: docker.elastic.co/kibana/kibana:7.17.8
+   ports:
+    - 5601:5601
+   depends_on:
+    - elasticsearch
+   environment:
+    - ELASTICSEARCH_URL=http://localhost:9200
+    - XPACK_MONITORING_ENABLED=true
+   networks:
+    - docker-network
+  
+networks:
+  docker-network:
+    driver: bridge
+
+volumes:
+  elasticsearch-data:

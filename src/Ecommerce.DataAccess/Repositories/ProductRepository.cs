@@ -13,6 +13,7 @@ namespace Ecommerce.DataAccess.Repositories
 
         public override Task<IEnumerable<Product>> GetAllAsync()
         {
+            // TODO: Include navigation entities (same as GetByIdAsync)
             return base.GetAllAsync();
         }
 
